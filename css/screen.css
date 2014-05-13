@@ -1,0 +1,61 @@
+body{
+	background-color: #000;
+	color: #fff;
+}
+
+
+
+video#bgvid{ 
+	position: fixed; 
+	right: 0; 
+	bottom: 0;
+	min-width: 100%; 
+	min-height: 100%;
+	width: auto; 
+	height: auto; 
+	z-index: -100;
+	background: url(polina.jpg) no-repeat;
+	background-size: cover; 
+}
+
+
+
+aside{
+	position: absolute;
+	background-color: rgba(255, 255, 255, 0.5);
+	width: 15rem;
+	height: 100%;
+	top: 0;
+	right: 0;
+}
+
+.menu{
+	position: absolute;
+	left: -4rem;
+	width: 3rem;
+	height: 3rem;
+	cursor: pointer;
+	top: 45%;
+}
+.menu img{
+	width: 100%;
+	height: auto;
+}
+#paneel ul{
+	width: 100%;
+}
+#paneel ul li{
+	width: 100%;
+	height: 5rem;
+	display: block;
+	background-color: rgba(0, 0, 0, 0.2);
+	text-align: center;
+}
+#paneel ul li:hover{
+	background-color: rgba(0, 0, 0, 0.3);
+}
+#paneel ul li a{
+	height: 100%;
+	display: block;
+	padding: 1rem;
+}
