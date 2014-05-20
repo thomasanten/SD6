@@ -4,31 +4,35 @@ window.onload = function() {
 	var video = document.getElementById("bgvid");
 
 	// Buttons
-	var playButton = document.getElementById("play-pause");
-	var muteButton = document.getElementById("mute");
-	var fullScreenButton = document.getElementById("full-screen");
+	var playButton = document.getElementById("play-pause"),
+		muteButton = document.getElementById("mute"),
+		fullScreenButton = document.getElementById("full-screen");
 
 	// Sliders
-	var seekBar = document.getElementById("seek-bar");
-	var volumeBar = document.getElementById("volume-bar");
-	var filterBar = document.getElementById("filter-bar");
+	var seekBar = document.getElementById("seek-bar"),
+		volumeBar = document.getElementById("volume-bar"),
+		filterBar = document.getElementById("filter-bar");
 
-    var context = new webkitAudioContext(),
-		video = document.getElementById("bgvid"),
-		audioSource = context.createMediaElementSource(video);
+	// Audio
+	var videoSource = document.getElementById("bgvid"),
+		context = new webkitAudioContext(),
+		source = context.createMediaElementSource(videoSource),
+		filter = context.createBiquadFilter();
+		source.connect(filter);
+		filter.connect(context.destination);
+		filter.type = 0;
 
 	// Event listener for the play/pause button
 	playButton.addEventListener("click", function() {
 		if (video.paused == true) {
 			// Play the video
+			console.log('Play Video');
 			video.play();
-
 			// Update the button text to 'Pause'
 			playButton.innerHTML = "Pause";
 		} else {
 			// Pause the video
 			video.pause();
-
 			// Update the button text to 'Play'
 			playButton.innerHTML = "Play";
 		}
@@ -78,8 +82,6 @@ window.onload = function() {
 	video.addEventListener("timeupdate", function() {
 		// Calculate the slider value
 		var value = (100 / video.duration) * video.currentTime;
-
-		// Update the slider value
 		seekBar.value = value;
 	});
 
@@ -92,32 +94,37 @@ window.onload = function() {
 	seekBar.addEventListener("mouseup", function() {
 		video.play();
 	});
+	
+	$(function() {
+		$( "#volume-bar" ).slider({
+			range: "min",
+			value: 60,
+			animate: true,
+			min: 1,
+			max: 100,
+			slide: function( event, ui ) {
+				video.volume = ui.value/100;
+			}
+		});
+		$( "#amount" ).val( "$" + $( "#slider-range-min" ).slider( "value" ) );
+	});
 
-	// Event listener for the volume bar
-	volumeBar.addEventListener("change", function() {
-		// Update the video volume
-		video.volume = volumeBar.value;
-	});
-	
-	// Event listener for the FILTER
-	filterBar.addEventListener("change", function() {
-		// Calculate the new time
-		var bar = (filterBar.value)*500;
-		console.log(bar);
-		
-		filter = context.createBiquadFilter();
-		//filter.type = 2;                          // Change Filter type to test
-		filter.frequency.value = bar;
-		//filter.frequency.value = 5040;            // Change frequency to test
-		
-		audioSource.connect(filter);
-		filter.connect(context.destination);
-	});
-	
+	$(function() {
+		$( "#filter-bar" ).slider({
+			range: "min",
+			value: 1,
+			animate: true,
+			min: 1,
+			max: 50000,
+			slide: function( event, ui ) {
+				filter.frequency.value = ui.value;
+			}
+		});
+		$( "#amount" ).val( "$" + $( "#slider-range-min" ).slider( "value" ) );
+	});	
 	
 	$("#dag1").click(function() {
 		video.src = "vid/river.mp4";
-		//video.src = "vid/dock.mp4";
 		video.play();
 	});
 	$("#dag2").click(function() {
