@@ -22,37 +22,48 @@ window.onload = function() {
 		filter.connect(context.destination);
 		filter.type = 0;
 
+	var status;
+	
+	// Popup!
+	$(function() {
+		$( "#dialog-message" ).dialog({
+			height: 140,
+			modal: true,
+			dialogClass: 'no-close',
+			buttons: {
+				"Create an account": function() {
+					status = 1;
+					video.play();
+					$( this ).dialog( "close" );
+				}
+			}
+		});
+	  });
+
 	// Event listener for the play/pause button
 	playButton.addEventListener("click", function() {
 		if (video.paused == true) {
 			// Play the video
-			console.log('Play Video');
 			video.play();
-			// Update the button text to 'Pause'
-			playButton.innerHTML = "Pause";
+			$('#play-pause').children('img').attr("src","img/assets/video-pause.png");
 		} else {
 			// Pause the video
+			console.log('Pause Video');
 			video.pause();
-			// Update the button text to 'Play'
-			playButton.innerHTML = "Play";
+			$('#play-pause').children('img').attr("src","img/assets/video-play.png");
 		}
 	});
-
 
 	// Event listener for the mute button
 	muteButton.addEventListener("click", function() {
 		if (video.muted == false) {
 			// Mute the video
 			video.muted = true;
-
-			// Update the button text
-			muteButton.innerHTML = "Unmute";
+			$('#mute').children('img').attr("src","img/assets/mute-on.png");
 		} else {
 			// Unmute the video
 			video.muted = false;
-
-			// Update the button text
-			muteButton.innerHTML = "Mute";
+			$('#mute').children('img').attr("src","img/assets/mute-off.png");
 		}
 	});
 
@@ -67,7 +78,6 @@ window.onload = function() {
 			video.webkitRequestFullscreen(); // Chrome and Safari
 		}
 	});
-
 
 	// Event listener for the seek bar
 	seekBar.addEventListener("change", function() {
@@ -123,16 +133,18 @@ window.onload = function() {
 		$( "#amount" ).val( "$" + $( "#slider-range-min" ).slider( "value" ) );
 	});	
 	
-	$("#dag1").click(function() {
-		video.src = "vid/river.mp4";
-		video.play();
+	$("#paneel nav ul li a").click(function() {
+		var currentId = $(this).attr('id')
+		
+		if(status === currentId){
+			video.src = "vid/"+currentId+".webm";
+			video.play();
+			video.addEventListener('ended', function(){
+				$( "#dialog-message" ).dialog( "open" );
+			});
+		}else{
+			
+		}
 	});
-	$("#dag2").click(function() {
-		video.src = "vid/dock.mp4";
-		video.play();
-	});
-	$("#dag3").click(function() {
-		video.src = "vid/small.mp4";
-		video.play();
-	});
+	
 }
