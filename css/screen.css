@@ -7,24 +7,43 @@ section#vidControls{
 	position: absolute;
 	z-index: 10;
 }
-
+#container{
+	margin-right: 15rem;
+    position :relative;
+	height: 100%;
+}
+#toggleMenu{
+	position: relative;
+	top: 0;
+	right: 0;
+	z-index: 99;
+}
 video#bgvid{ 
-	width: 80%;
 	left: 0;
 	position: absolute;
-	top: 50%;
-	transform: translateY(-50%);
+	top: 30%;
+	width: 100%;
+	z-index: 1;
+}
+
+video#bgvid video{
+	width: 100%;
 }
 
 aside#paneel{
-	width: 20%;
+  width: 15rem;
+  height: 100%;
+  position: fixed;
+  right: 0;
+  top: 0;
+	/*width: 20%;
 	height: 100%;
 	min-width: 15rem;
 	top: 0;
 	right: 0;
 	position: absolute;
 	background-color: white;
-	text-align: center;
+	text-align: center;*/
 }
 .menu img{
 	width: 100%;
@@ -132,3 +151,7 @@ aside#paneel{
 	width: 50%;
 }
 .no-close .ui-dialog-titlebar-close {display: none }
+
+#container img{
+	width: 100%;
+}

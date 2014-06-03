@@ -9,12 +9,14 @@
     <link href="css/screen.css" rel="stylesheet" />
 </head>
 <body>
+
     <section id="dialog-message" title="What the heck!">
         <p>Hier kan uitleg komen over den website</p>
     </section>
 
-    <section id="video">
-        <video controls id="bgvid">
+    <section id="container">
+		<!--<img src="//images7.alphacoders.com/407/407975.jpg" />!-->
+        <video id="bgvid">
             <source src="vid/dag1.mov" type="video/mov">
             <source src="vid/dag1.mp4" type="video/mp4">
             <source src="vid/dag1.ogg" type="video/ogg">
@@ -22,6 +24,7 @@
             Your browser does not support the video tag.
         </video>
         <section id="vidControls">
+            <button type="button" class="toggleMenu">MENU</button>
             <button type="button" id="full-screen"><img src="img/assets/full_screen.png" alt="Volledigscherm" /></button>
             <button type="button" id="play-pause"><img src="img/assets/video-play.png" alt="Volledigscherm" /></button>
             <button type="button" id="mute"><img src="img/assets/mute-off.png" alt="Volledigscherm" /></button>
@@ -49,6 +52,23 @@
 	<!-- BigVideo Dependencies -->
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 	<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-    <script src="js/video.js"></script>
+    <script src="js/video.js"></script>   
+    <script>
+		$(function(){
+			$('.toggleMenu').on('click', function(){
+				if( $('#paneel').is(':visible') ) {
+					$('#paneel').animate({ 'width': '0px' }, 'slow', function(){
+						$('#paneel').hide();
+					});
+					$('#container').animate({ 'margin-right': '0px' }, 'slow');
+				}
+				else {
+					$('#paneel').show();
+					$('#paneel').animate({ 'width': '210px' }, 'slow');
+					$('#container').animate({ 'margin-right': '210px' }, 'slow');
+				}
+			});
+		});
+    </script>
 </body>
 </html>
