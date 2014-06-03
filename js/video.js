@@ -18,9 +18,10 @@ window.onload = function() {
 		context = new webkitAudioContext(),
 		source = context.createMediaElementSource(videoSource),
 		filter = context.createBiquadFilter();
+		filter.type = 'lowpass';  // In this case it's a lowshelf filter
+		filter.frequency.value = 500;
 		source.connect(filter);
 		filter.connect(context.destination);
-		filter.type = 0;
 	
 	var status,
 		currentId,
@@ -69,7 +70,6 @@ window.onload = function() {
 			$('#mute').children('img').attr("src","img/assets/mute-off.png");
 		}
 	});
-
 
 	// Event listener for the full-screen button
 	fullScreenButton.addEventListener("click", function() {
@@ -122,23 +122,20 @@ window.onload = function() {
 		$( "#amount" ).val( "$" + $( "#slider-range-min" ).slider( "value" ) );
 	});
 
-	$(function() {
+	/*$(function() {
 		$( "#filter-bar" ).slider({
 			range: "min",
 			value: 1,
 			animate: true,
 			min: 1,
-			max: 50000,
+			max: 5000,
 			slide: function( event, ui ) {
 				filter.frequency.value = ui.value;
 			}
 		});
 		$( "#amount" ).val( "$" + $( "#slider-range-min" ).slider( "value" ) );
-	});	
-	
-	console.log(video.buffered.start(0) / video.buffered.end(0));
-	//console.log("Start: " + video.buffered.start(0) + " End: " + video.buffered.end(0));
-	
+	});	*/
+		
 	$(".panel nav ul li a").click(function() {
 		var currentId = $(this).attr('id');
 
