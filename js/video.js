@@ -21,18 +21,21 @@ window.onload = function() {
 		source.connect(filter);
 		filter.connect(context.destination);
 		filter.type = 0;
-
-	var status;
+	
+	var status,
+		currentId,
+		statusId;
 	
 	// Popup!
 	$(function() {
 		$( "#dialog-message" ).dialog({
-			height: 140,
+			width: '30rem',
 			modal: true,
 			dialogClass: 'no-close',
 			buttons: {
-				"Create an account": function() {
-					status = 1;
+				"Let's go": function() {
+					statusId = 1;
+					console.log(statusId);
 					video.play();
 					$( this ).dialog( "close" );
 				}
@@ -133,18 +136,32 @@ window.onload = function() {
 		$( "#amount" ).val( "$" + $( "#slider-range-min" ).slider( "value" ) );
 	});	
 	
-	$("#paneel nav ul li a").click(function() {
-		var currentId = $(this).attr('id')
-		
-		if(status === currentId){
-			video.src = "vid/"+currentId+".webm";
-			video.play();
-			video.addEventListener('ended', function(){
-				$( "#dialog-message" ).dialog( "open" );
+	console.log(video.buffered.start(0) / video.buffered.end(0));
+	//console.log("Start: " + video.buffered.start(0) + " End: " + video.buffered.end(0));
+	
+	$(".panel nav ul li a").click(function() {
+		var currentId = $(this).attr('id');
+
+		if('dag'+statusId === currentId || currentId > 'dag'+statusId){
+			video.src = "vid/dag"+statusId+".webm";
+			video.play(video.onended = function(e) {
+				checkStatus();
+				console.log(statusId);
+				//$( "#dialog-message" ).dialog( "open" );
 			});
 		}else{
-			
+			console.log('Helaas nog niet te bekijken');
 		}
 	});
+
+	function checkStatus(){
+		if('dag'+statusId === currentId){ 
+			statusId = 2; 
+			return true;
+		}else{
+			statusId++; 
+			return false;
+		}
+	};
 	
 }

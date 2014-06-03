@@ -15,35 +15,36 @@
     </section>
 
     <section id="container">
-		<!--<img src="//images7.alphacoders.com/407/407975.jpg" />!-->
-        <video id="bgvid">
+        <video id="bgvid" poster="vid/dag1.png">
             <source src="vid/dag1.mov" type="video/mov">
             <source src="vid/dag1.mp4" type="video/mp4">
             <source src="vid/dag1.ogg" type="video/ogg">
-            <track src="vid/dag1_nl.vtt" label="Ondertiteling" kind="ondertitel" srclang="nl" default></track>
+            <track kind="subtitles" label="Dutch subtitles" src="vid/dag1_nl.vtt" srclang="nl" default></track>
+            <track kind="subtitles" label="English subtitles" src="vid/dag1_en.vtt" srclang="nl"></track>
             Your browser does not support the video tag.
         </video>
-        <section id="vidControls">
-            <button type="button" class="toggleMenu">MENU</button>
-            <button type="button" id="full-screen"><img src="img/assets/full_screen.png" alt="Volledigscherm" /></button>
-            <button type="button" id="play-pause"><img src="img/assets/video-play.png" alt="Volledigscherm" /></button>
-            <button type="button" id="mute"><img src="img/assets/mute-off.png" alt="Volledigscherm" /></button>
-        </section>
     </section>
     
-    
-    
-    <aside id="paneel">
+    <aside id="menu" class="panel" role="navigation">
+    	<a href="#menu" class="menu-link">&#9776;</a>
         <nav>
             <ul>
+                <h2>Inhoudsopgave</h2>
                 <li><a href="#Dag1" id="dag1">Dag 1</a></li>
                 <li><a href="#Dag2" id="dag2">Dag 2</a></li>
                 <li><a href="#Dag3" id="dag3">Dag 3</a></li>
             </ul>
         </nav>
         <div id="video-controls">
+            <h2>Controls</h2>
+            <button type="button" id="full-screen"><img src="img/assets/full_screen.png" alt="Volledigscherm" /></button>
+            <button type="button" id="play-pause"><img src="img/assets/video-play.png" alt="Volledigscherm" /></button>
+            <button type="button" id="mute"><img src="img/assets/mute-off.png" alt="Volledigscherm" /></button>
+            <h3>Master</h3>
             <input type="range" id="seek-bar" value="0" class="slider"><br>
+            <h3>Music</h3>
             <div id="volume-bar" class="slider"></div><br>
+            <h3>SFX</h3>
             <div id="filter-bar" class="slider"></div> 
         </div>
     </aside>
@@ -52,23 +53,14 @@
 	<!-- BigVideo Dependencies -->
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 	<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-    <script src="js/video.js"></script>   
+    <script src="js/video.js"></script>
+    <script src="js/menu/jquery.big-slide.js"></script>
     <script>
-		$(function(){
-			$('.toggleMenu').on('click', function(){
-				if( $('#paneel').is(':visible') ) {
-					$('#paneel').animate({ 'width': '0px' }, 'slow', function(){
-						$('#paneel').hide();
-					});
-					$('#container').animate({ 'margin-right': '0px' }, 'slow');
-				}
-				else {
-					$('#paneel').show();
-					$('#paneel').animate({ 'width': '210px' }, 'slow');
-					$('#container').animate({ 'margin-right': '210px' }, 'slow');
-				}
-			});
-		});
+		$(document).ready(function() {
+			$('.menu-link').bigSlide({
+				side : 'right'
+				});
+		});	
     </script>
 </body>
 </html>
